@@ -13,7 +13,7 @@ let beginTime = new Date();
 let divToType = document.getElementById("toType");
 let divTyped = document.getElementById("typed");
 let spanTime = document.getElementById("time");
-let spanLevelCount = document.getElementById("levelCount");
+let spanErrorsCount = document.getElementById("errorsCount");
 let spanWordIndex = document.getElementById("wordIndex");
 
 // Functions
@@ -27,9 +27,9 @@ function initGame() {
 }
 
 function initLevel() {
-  spanLevelCount.textContent = ++levelCount;
+  spanErrorsCount.textContent = 0;
   words = choice(vocabulary).slice();
-  shuffle(words);
+  //shuffle(words);
   wordIndex = 0;
   initWord();
 }
@@ -51,6 +51,7 @@ function updateMain() {
   removeChildren(divToType);
   removeChildren(divTyped);
   let span;
+let errorsCount = 0;  
   for (let i in contentToType) {
     span = document.createElement("span");
     span.textContent = contentToType[i];
@@ -59,11 +60,13 @@ function updateMain() {
         span.className = "correct";
       } else {
         span.className = "incorrect";
+        errorsCount += 1;
+        spanErrorsCount.textContent = errorsCount;
       }
     }
     divToType.appendChild(span);
     span = document.createElement("span");
-    span.textContent = i < contentTyped.length ? contentTyped[i] : i == contentTyped.length ? "^" : " ";
+    span.textContent = i < contentTyped.length ? contentTyped[i] : i == contentTyped.length ? "|" : " ";
     if (i == contentTyped.length && contentTyped.length < contentToType.length) {
       span.className = "cursor";
     }
