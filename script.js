@@ -18,6 +18,28 @@ let spanWordIndex = document.getElementById("wordIndex");
 
 // Functions
 
+const startButton = document.getElementById('everybodydance');
+const mainGame = document.getElementById('main');
+const tableInfo = document.getElementById('display');
+
+startButton.onclick = () => {
+  startButton.classList.add("pressed");
+  setTimeout(()=>{
+    hideButton();
+    showGameScreen();
+    initGame();
+  }, 500);
+}
+
+function showGameScreen() {
+  mainGame.style.display = 'block';
+  tableInfo.style.display = 'block';
+}
+function hideButton() {
+  startButton.style.display = 'none';
+}
+
+
 function initGame() {
   setInterval(updateTime, 100);
   fetch("vocabulary.json")
@@ -129,5 +151,3 @@ window.addEventListener("keydown", event => {
     }
   }
 });
-
-initGame();
