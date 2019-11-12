@@ -1,14 +1,16 @@
 "use strict";
 
 // Global state
-
+const maxGameDuration = 5;
 let vocabulary;
 let levelCount = 0;
 let words;
 let wordIndex;
 let contentToType;
 let contentTyped;
-let beginTime = new Date();
+let beginTime;
+let timerId;
+let isGameStooped = false;
 
 let divToType = document.getElementById("toType");
 let divTyped = document.getElementById("typed");
@@ -40,8 +42,10 @@ function hideButton() {
 }
 
 
+
 function initGame() {
-  setInterval(updateTime, 100);
+  beginTime = new Date();
+  timerId = setInterval(updateTime, 100);
   fetch("vocabulary.json")
     .then(response => response.json())
     .then(json => { vocabulary = json; })
@@ -102,7 +106,19 @@ function updateTime() {
   let minutes = Math.floor(seconds / 60);
   seconds -= minutes * 60;
   spanTime.textContent = padding(minutes) + ":" + padding(seconds);
+  if (minutes === maxGameDuration - 1){
+    spanTime.style.color = 'red';
+  }
+  if (minutes === maxGameDuration){
+    stopGame();
+  };
 }
+
+function stopGame() {
+  clearInterval(timerId);
+  isGameStooped = true;
+}
+
 
 // Utility functions
 
@@ -133,6 +149,9 @@ function padding(num) {
 // Add event listeners
 
 window.addEventListener("keydown", event => {
+  if (isGameStooped){
+    return;
+  }
   let changed = false;
   if (contentTyped.length > 0 && event.key == "Escape") {
     contentTyped = "";
