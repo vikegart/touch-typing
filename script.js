@@ -69,8 +69,6 @@ function initWord() {
   contentTyped = "";
   spanWordIndex.textContent = wordIndex;
   updateMain();
-  let utterance = new SpeechSynthesisUtterance(contentToType);
-  window.speechSynthesis.speak(utterance);
 }
 
 function updateMain() {
