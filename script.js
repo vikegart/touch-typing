@@ -1,7 +1,7 @@
 "use strict";
 
 // Global state
-const maxGameDuration = 5;
+const maxGameDuration = 3; //in minutes
 let vocabulary;
 let levelCount = 0;
 let words;
