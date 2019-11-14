@@ -1,6 +1,6 @@
 # A Typing Game
-
-This is a typing game written for my son.
+Originally code idea by @hanwentao
+This is a typing game. You need keyboard without letters to play.
 
 ## How to Run
 
